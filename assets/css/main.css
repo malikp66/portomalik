@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --primary: #171717;
+  --secondary: #EBEBE6;
+  --bg: #DD323F;
+  --primary-rgb: 23 23 23;
+  --secondary-rgb: 235 235 230;
+  --bg-rgb: 221 50 63;
+  --cursor-size: 3rem;
+  --cursor-text-size: 5rem;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  /* box-sizing: border-box; */
+}
+
+html, body {
+  cursor: none;
+}
+
+html{
+  font-size: calc(10 / 1440 * 100vw);
+}
+
+@font-face {
+  font-family: 'super-retro-m54';
+  src: url('~/assets/fonts/super-retro-m54.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; 
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  font-weight: 400;
+}
