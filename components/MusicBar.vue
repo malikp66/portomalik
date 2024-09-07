@@ -10,20 +10,31 @@
     </div>
     <div class="music-bar-content">
       <div class="music-controls">
-        <button @click="previousTrack">⏮</button>
-        <button @click="togglePlay">{{ isPlaying ? '❚❚' : '▶' }}</button>
-        <button @click="nextTrack">⏭</button>
+        <button @click="previousTrack"><PhSkipBack size="2rem" weight="fill" /></button>
+        <button @click="togglePlay">
+          <component :is="isPlaying ? PhPause : PhPlay" size="2rem" weight="fill" />
+        </button>
+        <button @click="nextTrack"><PhSkipForward size="2rem" weight="fill" /></button>
       </div>
       <div class="track-info">
         <span class="text-[1.3rem] text-[var(--primary)] uppercase font-bold">{{ currentTrack.title }}</span>
         <span class="text-[1rem] text-[rgba(var(--primary-rgb, 0.3))] uppercase">{{ currentTrack.artist }}</span>
       </div>
     </div>
+    <div class="absolute top-[-1rem] left-[-1rem] bg-[var(--secondary)] p-[1rem] rounded-full">
+      <PhPlus size="2rem" weight="bold" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { PhSkipForward } from '@phosphor-icons/vue'
+import { PhSkipBack } from '@phosphor-icons/vue'
+import { PhPause } from '@phosphor-icons/vue'
+import { PhPlay } from '@phosphor-icons/vue'
+import { PhPlus } from '@phosphor-icons/vue'
+
 
 const isOpen = ref(false)
 const isPlaying = ref(false)

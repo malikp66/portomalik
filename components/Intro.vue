@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { PhArrowFatDown } from '@phosphor-icons/vue'
 
 const letters = ref<HTMLSpanElement[]>([])
 
@@ -37,8 +38,12 @@ onMounted(() => {
     <div class="word">
       <span v-for="(letter, index) in 'MALIK'" :key="index" @click="activateLetter(index)">{{ letter }}</span>
     </div>
-    <div>
+    <div class="w-full flex justify-center">
+      <div class="bg-[var(--primary)] rounded-full p-[1rem]">
+        <PhArrowFatDown size="2rem" color="var(--bg)" weight="fill" />
+      </div>
     </div>
+    <h3 class="aboutme">about me</h3>
   </div>
 </template>
 
@@ -160,5 +165,16 @@ onMounted(() => {
   90% {
     transform: translateY(-48vh) scaleY(4);
   }
+}
+
+.aboutme{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--secondary);
+  display:inline-block;
+  font-family: 'super-retro-m54', sans-serif;
+  font-size: 9.6rem;
+  margin: 0;
 }
 </style>

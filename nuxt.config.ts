@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     },
   },
   plugins: [
+    '~/plugins/phosphor-icons.js',
   ],
   fontMetrics: {
     fonts: ['Inter'],

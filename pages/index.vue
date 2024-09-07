@@ -6,6 +6,7 @@
   <section class="layout">
     <section id="intro">
       <Intro/>
+      <About/>
     </section>
   </section>
 </template>
