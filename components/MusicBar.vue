@@ -1,5 +1,5 @@
 <template>
-  <div class="music-bar" :class="{ 'music-bar-open': isOpen }">
+  <div class="music-bar border-[2px] border-[var(--primary)]" :class="{ 'music-bar-open': isOpen }">
     <div class="music-bar-toggle" @click="toggleMusicBar">
       <div class="music-bar-lay">
         <div class="music-icon">
@@ -21,8 +21,8 @@
         <span class="text-[1rem] text-[rgba(var(--primary-rgb, 0.3))] uppercase">{{ currentTrack.artist }}</span>
       </div>
     </div>
-    <div class="absolute top-[-1rem] left-[-1rem] bg-[var(--secondary)] p-[1rem] rounded-full">
-      <PhPlus size="2rem" weight="bold" />
+    <div @click="toggleMusicBar" class="absolute top-[-1rem] left-[-1rem] bg-[var(--secondary)] p-[0.8rem] rounded-full border-[2px] border-[var(--primary)]">
+      <component :is="isOpen ? PhMinus : PhPlus" size="1.5rem" weight="bold" />
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@ import { PhSkipBack } from '@phosphor-icons/vue'
 import { PhPause } from '@phosphor-icons/vue'
 import { PhPlay } from '@phosphor-icons/vue'
 import { PhPlus } from '@phosphor-icons/vue'
+import { PhMinus } from '@phosphor-icons/vue'
 
 
 const isOpen = ref(false)
@@ -67,7 +68,7 @@ const nextTrack = () => {
 <style scoped>
 .music-bar {
   position: fixed;
-  bottom: 2rem;
+  bottom: 3rem;
   right: 2rem;
   background: var(--secondary);
   color: var(--primary);

@@ -31,14 +31,7 @@ onMounted(() => {
 
 <template>
     <div class="layout">
-        <div class="">
-            <h3 class="aboutme">about me</h3>
-        </div>
-        <div class="education">
-            <div class="card">
-                
-            </div>
-        </div>
+        <h3 class="aboutme">Skills</h3>
     </div>
 </template>
 
@@ -52,9 +45,9 @@ onMounted(() => {
   flex-direction: column;
   overflow: hidden;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   border-top: 1.5rem solid var(--secondary); 
-  background: var(--primary);
+  background: var(--secondary);
 }
 
 </style>

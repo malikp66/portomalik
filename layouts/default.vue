@@ -29,7 +29,7 @@ const animateCursor = () => {
 }
 
 const addHoverEffect = (e: any) => {
-  if (['button', 'h1', 'h2', 'h3', 'p', 'span', 'a','BUTTON', 'H1', 'H2', 'H3', 'P', 'SPAN', 'A'].includes(e.target.tagName) || e.target.classList.contains('clickable')) {
+  if (['button', 'h1', 'h2', 'h3', 'p', 'span', 'a','BUTTON', 'H1', 'H2', 'H3', 'P', 'SPAN', 'A', 'clickable', 'CLICKABLE'].includes(e.target.tagName) || e.target.classList.contains('clickable')) {
     cursorDot.value.classList.add('cursor-text-hover')
   }
 }

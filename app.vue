@@ -21,6 +21,7 @@ useSeoMeta({
 </script>
 
 <template>
+  <!-- #####-----MALIK------###### -->
   <div>
     <NuxtLayout>
       <NuxtPage />
