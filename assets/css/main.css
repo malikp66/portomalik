@@ -43,6 +43,10 @@ body {
   font-weight: 400;
 }
 
+p{
+  display: inline-block;
+  margin: 0;
+}
 
 /* Ubah warna latar belakang scrollbar */
 body::-webkit-scrollbar {

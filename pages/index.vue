@@ -5,45 +5,76 @@ import { useNuxtApp } from '#app'
 const { $gsap, $ScrollTrigger } = useNuxtApp()
 
 const scrollDown = ref(null)
+const introSection = ref(null)
+const aboutSection = ref(null)
+const skillsSection = ref(null)
 
+const japaneseChars = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+function scrambleText(element: HTMLElement, finalText: string, duration: number = 2): gsap.core.Timeline {
+  const tl = $gsap.timeline();
+  let currentText = element.textContent || '';
+  const length = finalText.length;
+
+  tl.to({}, {
+    duration: duration,
+    onUpdate: function() {
+      const progress = this.progress();
+      const targetLength = Math.floor(length * progress);
+      currentText = finalText.slice(0, targetLength) +
+        Array.from({length: length - targetLength}, () => 
+          japaneseChars[Math.floor(Math.random() * japaneseChars.length)]
+        ).join('');
+      element.textContent = currentText;
+    }
+  });
+
+  return tl;
+}
 
 onMounted(() => {
   // Animasi bubble untuk scroll-down
-  const bubbleAnimation = $gsap.timeline({ repeat: -1, yoyo: true })
+  $gsap.timeline({ repeat: -1, yoyo: true })
     .to(scrollDown.value, {
-      borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
-      duration: 2,
+      borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%;",
+      transform: "scale(1.1)",
+      duration: 1,
       ease: "sine.inOut"
     })
     .to(scrollDown.value, {
-      borderRadius: "70% 30% 50% 50% / 30% 30% 70% 70%",
-      duration: 2,
+      borderRadius: "60% 40% 30% 70% / 50% 60% 40% 50%",
+      duration: 1,
+      transform: "scale(0.9)",
       ease: "sine.inOut"
     })
 
   // Animasi bouncing untuk scroll-down
   $gsap.to(scrollDown.value, {
     y: -15,
-    duration: 0.8,
+    duration: 0.5,
     repeat: -1,
     yoyo: true,
     ease: "power1.inOut"
   })
 
-  // ScrollTrigger untuk menghilangkan scroll-down
+  // ScrollTrigger untuk menghilangkan scroll-down dan intro
   $ScrollTrigger.create({
     trigger: "#intro",
     start: "top top",
-    end: "bottom top",
-    scrub: true,
+    endTrigger: "#about",
+    scrub: 1,
     onUpdate: (self) => {
       const progress = self.progress;
       $gsap.to(scrollDown.value, {
-        opacity: 1 - progress,
-        y: progress * 50,
-        duration: 0.1,
+        opacity: progress > 0.3 ? 0 : 1,
+        duration: 0.3,
         ease: "power1.out"
       });
+      $gsap.to(introSection.value, {
+        opacity: progress > 0.3 ? 0 : 1,
+        duration: 0.3,
+        ease: "power1.fadeOut"
+      })
     },
   });
 
@@ -51,9 +82,17 @@ onMounted(() => {
   $gsap.from("#about .title", {
     scrollTrigger: {
       trigger: "#about",
-      start: "top bottom",
-      end: "top center",
-      scrub: true,
+      start: "top center",
+      end: "center bottom",
+      scrub: 1,
+      onEnter: (self) => {
+        const aboutTitle = document.querySelector("#about .title") as HTMLElement;
+        if (aboutTitle) {
+          const tl = $gsap.timeline();
+          tl.from(aboutTitle, { x: "-100%", opacity: 0, duration: 0.5 })
+            .add(scrambleText(aboutTitle, "ABOUT ME", 2));
+        }
+      },
     },
     x: "-100%",
     opacity: 0,
@@ -63,9 +102,17 @@ onMounted(() => {
   $gsap.from("#skill .title", {
     scrollTrigger: {
       trigger: "#skill",
-      start: "top bottom",
-      end: "top center",
-      scrub: true,
+      start: "top center",
+      end: "center bottom",
+      scrub: 1,
+      onUpdate: (self) => {
+        const skillTitle = document.querySelector("#skill .title") as HTMLElement;
+        if (skillTitle) {
+          const tl = $gsap.timeline();
+          tl.from(skillTitle, { x: "100%", opacity: 0, duration: 0.5 })
+            .add(scrambleText(skillTitle, "SKILLS", 2));
+        }
+      },
     },
     x: "100%",
     opacity: 0,
@@ -75,18 +122,18 @@ onMounted(() => {
 
 <template>
   <section class="layout">
-    <section id="intro" class="z-[10]">
+    <section ref="introSection" id="intro" class="z-[10]">
       <Intro/>
-      <button href="#about" ref="scrollDown" class="scroll-down">
+      <a href="#about" ref="scrollDown" class="scroll-down">
         <PhArrowFatDown size="2rem" color="var(--bg)" weight="fill" />
-      </button>
+      </a>
     </section>
-    <section id="about" class="z-[20] relative">
-      <h3 class="title">about me</h3>
+    <section id="about" ref="aboutSection" class="z-[20] relative">
+      <h3 class="title antialiased">about me</h3>
       <About/>
     </section>
-    <section id="skill" class="z-[30] relative">
-      <h3 class="title">skills</h3>
+    <section id="skill" ref="skillsSection" class="z-[30] relative">
+      <h3 class="title antialiased">skills</h3>
       <Skills/>
     </section>
   </section>
@@ -100,8 +147,9 @@ onMounted(() => {
 #intro .scroll-down{
   background: var(--primary);
   border-radius: 50%;
-  position: fixed;
-  bottom: 2rem;
+  position: absolute;
+  bottom: 15%;
+  text-decoration: none;
   left: 50%;
   transform: translateX(-50%);
   padding: 1rem;
@@ -124,13 +172,13 @@ onMounted(() => {
 
 #about .title{
   color: var(--secondary);
-  top: -10rem;
+  top: -10.8rem;
   left: 0;
 }
 
 #skill .title{
   color: var(--secondary);
-  top: -10rem;
+  top: -10.8rem;
   right: 0;
 }
 

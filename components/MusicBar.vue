@@ -21,7 +21,7 @@
         <span class="text-[1rem] text-[rgba(var(--primary-rgb, 0.3))] uppercase">{{ currentTrack.artist }}</span>
       </div>
     </div>
-    <div @click="toggleMusicBar" class="absolute top-[-1rem] left-[-1rem] bg-[var(--secondary)] p-[0.8rem] rounded-full border-[2px] border-[var(--primary)]">
+    <div @click="toggleMusicBar" style="box-shadow: 0px 0px 15px var(--primary);" class="absolute top-[-1rem] left-[-1rem] bg-[var(--secondary)] p-[0.8rem] rounded-full border-[2px] border-[var(--primary)]">
       <component :is="isOpen ? PhMinus : PhPlus" size="1.5rem" weight="bold" />
     </div>
   </div>
@@ -75,6 +75,7 @@ const nextTrack = () => {
   border-radius: 1rem;
   padding: 0 0 0 1.5rem;
   display: flex;
+  /* box-shadow: 0px 0px 15px var(--primary); */
   align-items: center;
   transition: all 0.3s ease;
   z-index: 1000;
@@ -134,7 +135,7 @@ const nextTrack = () => {
 .music-bar-content {
   display: none;
   flex-grow: 1;
-  margin-left: 10px;
+  margin-left: 1rem;
 }
 
 .music-bar-open .music-bar-content {

@@ -1,8 +1,8 @@
 import { gsap } from 'gsap'
-import { ScrollTrigger, Draggable, MotionPathPlugin } from "gsap/all";
+import { ScrollTrigger, Draggable} from "gsap/all";
 
 // Daftarkan plugin GSAP yang dibutuhkan
-gsap.registerPlugin(ScrollTrigger, Draggable, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 export default defineNuxtPlugin((nuxtApp) => {
   return {
@@ -10,7 +10,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       gsap,
       ScrollTrigger,
       Draggable,
-      MotionPathPlugin
     }
   }
 })

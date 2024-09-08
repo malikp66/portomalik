@@ -23,7 +23,7 @@ onMounted(() => {
     // Initial animation
     setTimeout(() => {
       span.classList.add('active')
-    }, 750 * (idx + 1))
+    }, 650 * (idx + 1))
   })
 })
 
@@ -31,12 +31,12 @@ onMounted(() => {
 
 <template>
   <div class="layout">
-    <div class="flex w-[80%] justify-between">
-      <h3 class="uppercase text-[1.6rem] text-[var(--secondary)]">mochammad malik putra kurniawan</h3>
-      <h3 class="uppercase text-[1.6rem] text-[var(--secondary)]">bsd city, indonesia</h3>
+    <div class="detail flex w-[80%] justify-between">
+      <h3 class="uppercase text-[1.6rem] text-[var(--secondary)] antialiased">mochammad malik putra kurniawan</h3>
+      <h3 class="uppercase text-[1.6rem] text-[var(--secondary)] antialiased">bsd city, indonesia</h3>
     </div>
     <div class="word">
-      <span v-for="(letter, index) in 'MALIK'" :key="index" @click="activateLetter(index)">{{ letter }}</span>
+      <span class="antialiased" v-for="(letter, index) in 'MALIK'" :key="index" @click="activateLetter(index)">{{ letter }}</span>
     </div>
     <div class="w-full flex justify-center">
     </div>
@@ -54,6 +54,42 @@ onMounted(() => {
   align-items: center;
   justify-content: space-around;
   background: var(--bg);
+}
+
+.detail h3:nth-child(1) {
+  animation: showFromLeft 1s ease-in forwards;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.detail h3:nth-child(2) {
+  animation: showFromRight 1s ease-in forwards;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+@keyframes showFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes showFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .word {
